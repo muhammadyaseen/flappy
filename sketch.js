@@ -41,16 +41,16 @@ function draw() {
             }
         }
         
-        if (birds.length == 0) {
-            counter = 0;
-            nextGeneration();
-            pipes = [];
-        }
-
         for (let bird of birds) {
             bird.think(pipes);
             bird.update();
             bird.show();   
+        }
+
+        if (birds.length == 0) {
+            counter = 0;
+            nextGeneration();
+            pipes = [];
         }
     }
 
