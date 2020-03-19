@@ -40,6 +40,13 @@ function draw() {
                 pipes.splice(i,1);
             }
         }
+
+        // if a bird has gone off screen, remove it from active pool
+        for (let j = birds.length - 1; j >= 0; j-- ){
+            if (birds[j].offscreen()) {
+                savedBirds.push(birds.splice(j,1)[0]);
+            }
+        }
         
         for (let bird of birds) {
             bird.think(pipes);
