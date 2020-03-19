@@ -1,40 +1,68 @@
-
-var bird;
-var pipes = [];
+const TOTAL = 100;
+let birds = [];
+let savedBirds = [];
+let pipes = [];
+let counter = 0;
+let cycles = 100;
+let slider;
 
 function setup() {
-    
-    createCanvas(400, 600);
-    bird = new Bird();
-
-    pipes.push(new Pipe());
+    createCanvas(640, 480);
+    slider = createSlider(1, 100, 1);
+    for (let i = 0; i < TOTAL; i++) {
+        birds[i] = new Bird();
+    }
 }
 
 function draw() {
+   
+    // evolution logic
+    for(let n = 0; n < slider.value(); n++) {
 
+        // add a new pipe every 75 draw calls
+        if (counter % 75 == 0) {
+            pipes.push(new Pipe());    
+        } 
+        counter++;
+        
+        for(var i = pipes.length - 1; i >= 0; i--) {
+            pipes[i].show();
+            pipes[i].update();
 
+            // remove any birds that have hit a pipe
+            for (let j = birds.length - 1; j >= 0; j-- ){
+                if (pipes[i].hits(birds[j])) {
+                    savedBirds.push(birds.splice(j,1)[0]);
+                }
+            }
+
+            if (pipes[i].offscreen()) {
+                pipes.splice(i,1);
+            }
+        }
+        
+        if (birds.length == 0) {
+            counter = 0;
+            nextGeneration();
+            pipes = [];
+        }
+
+        for (let bird of birds) {
+            bird.think(pipes);
+            bird.update();
+            bird.show();   
+        }
+    }
+
+    // drawing logic
     background(0);
-    bird.update();
-    bird.show();   
-    
-    //rect(-10, 10, 100, 100);
 
-    if (frameCount % 50 == 0) {
-        pipes.push(new Pipe());
-    } 
+    for (let bird of birds) { 
+        bird.show();   
+    }
 
-    for(var i = pipes.length - 1; i >= 0; i--) {
-        console.log(pipes.length);
-        pipes[i].show();
-        pipes[i].update();
-
-        if (pipes[i].hits(bird)) {
-            console.log('hit');
-        }
-
-        if (pipes[i].offscreen()) {
-            pipes.splice(i,1);
-        }
+    for (let pipe of pipes) { 
+        pipe.show();   
     }
 }
 
