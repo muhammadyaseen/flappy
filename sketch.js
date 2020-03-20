@@ -5,13 +5,31 @@ let pipes = [];
 let counter = 0;
 let cycles = 100;
 let slider;
+let bgImage;
+var birdImage;
+var pipeFaceUpImg;
+var pipeFaceDownImg;
+var pipeBodyImg;
+
+function preload() {
+    bgImage = loadImage('assets/bg2.jpg');
+    birdImage = loadImage('assets/bird2.png');
+    pipeFaceUpImg = loadImage('assets/pipe-face-small.png');
+    pipeFaceDownImg = loadImage('assets/pipe-face-small-down.png');
+    pipeBodyImg = loadImage('assets/pipe-body-small.png');
+}
 
 function setup() {
     createCanvas(640, 480);
+    tf.setBackend('cpu');
     slider = createSlider(1, 100, 1);
     for (let i = 0; i < TOTAL; i++) {
         birds[i] = new Bird();
     }
+    // Here, we use a callback to display the image after loading
+    // loadImage('assets/bg.jpg', img => {
+    //     image(img, 0, 0, 640, 480);
+    // });
 }
 
 function draw() {
@@ -62,14 +80,21 @@ function draw() {
     }
 
     // drawing logic
-    background(0);
+    background(bgImage);
 
     for (let bird of birds) { 
-        bird.show();   
+        bird.show(birdImage);
+        image(birdImage, bird.x - bird.size/2, bird.y - bird.size/2, bird.size, bird.size);   
     }
 
     for (let pipe of pipes) { 
-        pipe.show();   
+        pipe.show();
+
+        image(pipeFaceDownImg, pipe.x, pipe.top - 20, pipe.w, 20);
+        image(pipeBodyImg, pipe.x, 0, pipe.w, pipe.top - 20);
+
+        image(pipeFaceUpImg, pipe.x, height - pipe.bottom, pipe.w, 20);
+        image(pipeBodyImg, pipe.x, height - pipe.bottom + 20, pipe.w, pipe.bottom - 20);
     }
 }
 

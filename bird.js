@@ -16,7 +16,7 @@ class Bird {
         if (brain) {
             this.brain = brain.copy();
         } else { 
-            this.brain = new NeuralNetwork(5, 8, 2);
+            this.brain = new TFNeuralNetwork(5, 8, 2);
         }
     }
 
@@ -25,6 +25,7 @@ class Bird {
         stroke(255);
         fill(255, 50);
         ellipse(this.x, this.y, this.size, this.size);
+        
     }
     
     think(pipes) {
