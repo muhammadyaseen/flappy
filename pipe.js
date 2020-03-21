@@ -4,7 +4,7 @@ class Pipe {
     constructor() {
 
         // How big is the empty space
-        let spacing = 125;
+        let spacing = 150;
         // Where is th center of the empty space
         let centery = random(spacing, height - spacing);
         
@@ -26,8 +26,8 @@ class Pipe {
             fill(255);
         }
         
-        rect(this.x, 0, this.w, this.top);
-        rect(this.x, height - this.bottom, this.w, this.bottom);
+        //rect(this.x, 0, this.w, this.top);
+        //rect(this.x, height - this.bottom, this.w, this.bottom);
     }
     
     update() {

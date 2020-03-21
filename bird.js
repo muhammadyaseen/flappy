@@ -22,9 +22,9 @@ class Bird {
 
     show() {
         
-        stroke(255);
-        fill(255, 50);
-        ellipse(this.x, this.y, this.size, this.size);
+        //stroke(255);
+        //fill(255, 50);
+        //ellipse(this.x, this.y, this.size, this.size);
         
     }
     
@@ -69,10 +69,10 @@ class Bird {
         this.velocity += this.gravity;
         this.velocity *= this.air_resistence;
         this.y += this.velocity;
-        if (this.y > height) {
-            this.y = height;
-            this.velocity = 0;
-        }
+        // if (this.y > height) {
+        //     this.y = height;
+        //     this.velocity = 0;
+        // }
     }
     
     up() {
@@ -81,7 +81,9 @@ class Bird {
         //console.log(this.velocity);
     }
 
-        
+    dispose() {
+        this.brain.dispose();
+    }
     offscreen() {
         return this.y > height || this.y < 0;
     }
