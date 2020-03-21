@@ -86,7 +86,7 @@ class Bird {
         return this.y > height || this.y < 0;
     }
 
-    mutate() {
-        this.brain.mutate(0.1);
+    mutate(rate) {
+        this.brain.mutate(rate);
     }
 }

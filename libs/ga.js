@@ -20,7 +20,7 @@ function pickOne() {
 
     let bird = savedBirds[index];
     let child = new Bird(bird.brain);
-    child.mutate();
+    child.mutate(0.1);
     return child;
 }
 
