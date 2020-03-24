@@ -91,4 +91,9 @@ class Bird {
     mutate(rate) {
         this.brain.mutate(rate);
     }
+
+    saveModel() {
+        //const saveResult = await this.brain.model.save('localstorage://bird-brain');
+        //console.log(saveResult);
+    }
 }
